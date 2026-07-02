@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Deep space canvas */
+    --background: 222 47% 4%;
+    --foreground: 180 100% 88%;
+
+    --card: 220 45% 6%;
+    --card-foreground: 180 100% 88%;
+
+    --popover: 220 45% 6%;
+    --popover-foreground: 180 100% 88%;
+
+    /* Holographic cyan */
+    --primary: 185 100% 55%;
+    --primary-foreground: 220 60% 4%;
+
+    /* Warning amber (HUD alerts) */
+    --secondary: 35 100% 55%;
+    --secondary-foreground: 220 60% 4%;
+
+    --muted: 220 30% 12%;
+    --muted-foreground: 185 40% 65%;
+
+    --accent: 280 90% 60%;
+    --accent-foreground: 220 60% 4%;
+
+    --destructive: 0 90% 55%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 185 80% 30%;
+    --input: 220 30% 14%;
+    --ring: 185 100% 55%;
+
+    --radius: 0.25rem;
+
+    /* Custom HUD tokens */
+    --hud-glow: 185 100% 55%;
+    --hud-warn: 35 100% 55%;
+    --hud-danger: 0 100% 55%;
+    --hud-ok: 140 100% 55%;
+
+    --gradient-hud: linear-gradient(135deg, hsl(185 100% 55% / 0.15), hsl(280 90% 60% / 0.05));
+    --gradient-panel: linear-gradient(180deg, hsl(220 45% 8% / 0.85), hsl(220 45% 4% / 0.95));
+    --shadow-hud: 0 0 20px hsl(185 100% 55% / 0.4), inset 0 0 20px hsl(185 100% 55% / 0.08);
+    --shadow-glow: 0 0 40px hsl(185 100% 55% / 0.6);
+
+    --sidebar-background: 220 45% 6%;
+    --sidebar-foreground: 180 100% 88%;
+    --sidebar-primary: 185 100% 55%;
+    --sidebar-primary-foreground: 220 60% 4%;
+    --sidebar-accent: 220 30% 12%;
+    --sidebar-accent-foreground: 180 100% 88%;
+    --sidebar-border: 185 80% 30%;
+    --sidebar-ring: 185 100% 55%;
+  }
+
+  .dark {
+    --background: 222 47% 4%;
+    --foreground: 180 100% 88%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html, body, #root {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 0.08em;
+  }
+  .font-mono-hud {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+  .text-glow {
+    text-shadow: 0 0 8px hsl(var(--hud-glow) / 0.9), 0 0 16px hsl(var(--hud-glow) / 0.5);
+  }
+  .text-glow-warn {
+    text-shadow: 0 0 8px hsl(var(--hud-warn) / 0.9), 0 0 16px hsl(var(--hud-warn) / 0.5);
+  }
+  .hud-panel {
+    background: var(--gradient-panel);
+    border: 1px solid hsl(var(--hud-glow) / 0.5);
+    box-shadow: var(--shadow-hud);
+    backdrop-filter: blur(6px);
+  }
+  .hud-frame {
+    border: 1px solid hsl(var(--hud-glow) / 0.6);
+    box-shadow: inset 0 0 12px hsl(var(--hud-glow) / 0.15), 0 0 8px hsl(var(--hud-glow) / 0.3);
+  }
+  .scanline::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 2px,
+      hsl(var(--hud-glow) / 0.04) 2px,
+      hsl(var(--hud-glow) / 0.04) 3px
+    );
+    pointer-events: none;
+  }
+}
+
+@keyframes hud-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+.animate-hud-pulse { animation: hud-pulse 1.4s ease-in-out infinite; }
+
+@keyframes sweep {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.animate-radar-sweep { animation: sweep 3s linear infinite; }
